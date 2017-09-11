@@ -1,11 +1,16 @@
 Package: torstenHeaders
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Torsten library extension for 'rstan'
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Date: 2017-09-11
+Maintainer: The package maintainer <billg@metrumrg.com>
+Authors@R: c(person("Bill", "Gillespie", email = "billg@metrumrg.com", role = c("aut", "cre")),
+             person("Charles", "Margossian", email = "charles.margossian@columbia.edu", role = c("aut")))
+Description: Something smart about torsten.
+Depends: R (>= 3.3.2)
+License: GPL2 | GPL3
 Encoding: UTF-8
-LazyData: true
+LazyData: false
+URL: https://github.com/metrumresearchgroup/TorstenHeaders
+BugReports: https://github.com/metrumresearchgroup/TorstenHeaders/issues
+RoxygenNote: 6.0.1

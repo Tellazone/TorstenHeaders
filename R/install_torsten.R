@@ -14,6 +14,8 @@ install_torsten <- function(StanHeaders_version=NULL,
                             lib=.libPaths()[1],
                             ...) {
 
+  lib <- normalizePath(lib)
+
   install_headers <- FALSE
 
   if(is.null(StanHeaders_version)){

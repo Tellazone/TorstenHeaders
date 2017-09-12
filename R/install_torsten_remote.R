@@ -1,5 +1,6 @@
-#' @title Installation for torsten
+#' @title Installation for torsten through remote repository
 #' @description installation of torsten with rstan, that replaces stanHeaders.
+#' This function allows to specify which branch of torsten to install from.
 #' @param StanHeaders_version package_version, package version of StanHeaders to append Torsten Default: NULL
 #' @param rstan_version package_version, package version of rstan to install, Default: NULL
 #' @param branch character, install the current build ('master') or different
@@ -43,7 +44,7 @@ install_torsten_remote <- function(StanHeaders_version=NULL,
   setwd(td)
 
   for(repo in c('stan','math')){
-    system(sprintf("git clone https://github.com/metrumresearchgroup/%s.git",repo))
+    system(sprintf("git clone --depth 1 https://github.com/metrumresearchgroup/%s.git",repo))
     setwd(repo)
 
     if(branch!='master') system(sprintf("git checkout torsten-%s",branch))

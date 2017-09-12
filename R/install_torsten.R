@@ -33,12 +33,12 @@ install_torsten <- function(StanHeaders_version=NULL,
                      type = "source",
                      lib=lib,...)
 
-  td <- find.package('torstenHeaders')
+  TH <- find.package('torstenHeaders')
 
   system(sprintf("rm -rf %s/StanHeaders/include/src/stan",lib))
-  system(sprintf("mv %s/stan/src/stan %s/StanHeaders/include/src/stan",td,lib))
+  system(sprintf("mv %s/stan %s/StanHeaders/include/src/stan",TH,lib))
   system(sprintf("rm -rf %s/StanHeaders/include/stan",lib))
-  system(sprintf("mv %s/math/stan %s/StanHeaders/include/stan",td,lib))
+  system(sprintf("mv %s/math/stan %s/StanHeaders/include/stan",TH,lib))
 
   if(is.null(rstan_version)) rstan_version <- pkgVersionCRAN('rstan')
 

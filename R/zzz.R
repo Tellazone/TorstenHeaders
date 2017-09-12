@@ -1,5 +1,7 @@
 .onLoad <- function(libname, pkgname) {
 
+  thiswd <- getwd()
+
   td <- file.path(tempdir(),'torsten')
   dir.create(td,showWarnings = FALSE)
   TH <- find.package('torstenHeaders')
@@ -11,7 +13,7 @@
 
   if(length(list.files(file.path(TH,'math')))==0){
     system(sprintf('git clone --depth 1 https://github.com/metrumresearchgroup/math.git %s/math',td))
-    system(sprintf("mv %s/math/stan %s/math",td,TH))
+    system(sprintf("mv %s/math/stan %s/math/stan",td,TH))
   }
 
   unlink(file.path(td,'math'),recursive = TRUE,force=TRUE)

@@ -1,7 +1,5 @@
 .onLoad <- function(libname, pkgname) {
 
-  thiswd <- getwd()
-
   td <- file.path(tempdir(),'torsten')
   dir.create(td,showWarnings = FALSE)
   TH <- find.package('torstenHeaders')
@@ -18,7 +16,6 @@
 
   unlink(file.path(td,'math'),recursive = TRUE,force=TRUE)
   unlink(file.path(td,'stan'),recursive = TRUE,force=TRUE)
-
 }
 
 .onAttach <- function(libname, pkgname) {

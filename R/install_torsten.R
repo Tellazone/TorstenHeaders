@@ -19,19 +19,17 @@ install_torsten <- function(StanHeaders_version=NULL,
   install_headers <- FALSE
 
   if(is.null(StanHeaders_version)){
-    if(c('StanHeaders')%in%row.names(installed.packages(lib.loc = lib))){
-      StanHeaders_version <- packageVersion('StanHeaders',lib.loc = lib)
+    if(c('StanHeaders')%in%row.names(installed.packages())){
+      StanHeaders_version <- packageVersion('StanHeaders')
     }else{
-      StanHeaders_version <- pkgVersionCRAN('StanHeaders')
+      StanHeaders_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'StanHeaders')
+      StanHeaders_version <- as.package_version(StanHeaders_version)
       install_headers <- TRUE
     }
   }
 
   if(install_headers)
-    install.packages(sprintf("https://cran.r-project.org/src/contrib/StanHeaders_%s.tar.gz",StanHeaders_version),
-                     repos = NULL,
-                     type = "source",
-                     lib=lib,...)
+    devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
 
   TH <- find.package('torstenHeaders')
 
@@ -40,11 +38,10 @@ install_torsten <- function(StanHeaders_version=NULL,
   system(sprintf("rm -rf %s/StanHeaders/include/stan",lib))
   system(sprintf("mv %s/math/stan %s/StanHeaders/include/stan",TH,lib))
 
-  if(is.null(rstan_version)) rstan_version <- pkgVersionCRAN('rstan')
+  if(is.null(rstan_version)) rstan_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'rstan')
 
-  install.packages(sprintf("https://cran.r-project.org/src/contrib/rstan_%s.tar.gz",rstan_version),
-                   repos = NULL,
-                   type = "source",
-                   lib=lib,...)
+  rstan_version <- as.package_version(rstan_version)
+
+  devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, ...)
 
 }

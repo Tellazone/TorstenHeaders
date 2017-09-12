@@ -3,8 +3,10 @@
 #' This function allows to specify which branch of torsten to install from.
 #' @param StanHeaders_version package_version, package version of StanHeaders to append Torsten Default: NULL
 #' @param rstan_version package_version, package version of rstan to install, Default: NULL
-#' @param branch character, install the current build ('master') or different
-#' development branch of torsten (e.g. 'develop'), Default: 'master'
+#' @param math_branch character, install the current build ('master') or different
+#' development branch of torsten math library (e.g. 'develop'), Default: 'torsten-master'
+#' @param stan_branch character, install the current build ('master') or different
+#' development branch of torsten stan library (e.g. 'develop'), Default: 'torsten-master'
 #' @param lib character, giving the library directory where to install the packages, Default: .libPaths()[1]
 #' @param ... parameters to pass to install.packages
 #' @details installation will replace the 'StanHeaders/include/src/stan' and 'StanHeaders/include/stan' of stanHeaders and install
@@ -12,11 +14,13 @@
 #' @rdname install_torsten_remote
 #' @export
 
-install_torsten_remote <- function(StanHeaders_version=NULL,
-                            rstan_version=NULL,
-                            branch='master',
-                            lib=.libPaths()[1],
-                            ...) {
+install_torsten_remote <- function(
+  StanHeaders_version=NULL,
+  rstan_version=NULL,
+  math_branch='torsten-master',
+  stan_branch='torsten-master',
+  lib=.libPaths()[1],
+  ...) {
 
   thiswd <- getwd()
 
@@ -26,18 +30,14 @@ install_torsten_remote <- function(StanHeaders_version=NULL,
     if(c('StanHeaders')%in%row.names(installed.packages())){
       StanHeaders_version <- packageVersion('StanHeaders')
     }else{
-      StanHeaders_version <- pkgVersionCRAN('StanHeaders')
+      StanHeaders_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'StanHeaders')
+      StanHeaders_version <- as.package_version(StanHeaders_version)
       install_headers <- TRUE
     }
   }
 
   if(install_headers)
-    install.packages(sprintf("https://cran.r-project.org/src/contrib/StanHeaders_%s.tar.gz",StanHeaders_version),
-                   repos = NULL,
-                   type = "source",
-                   lib=lib,...)
-
-  if(is.null(rstan_version)) rstan_version <- pkgVersionCRAN('rstan')
+    devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
 
   td <- tempdir()
 
@@ -47,7 +47,10 @@ install_torsten_remote <- function(StanHeaders_version=NULL,
     system(sprintf("git clone --depth 1 https://github.com/metrumresearchgroup/%s.git",repo))
     setwd(repo)
 
-    if(branch!='master') system(sprintf("git checkout torsten-%s",branch))
+    branch <- eval(parse(text = sprintf('%s_branch',repo)))
+    if(branch!='torsten-master')
+      system(sprintf("git checkout %s",branch))
+
     setwd('..')
 
     switch(repo,
@@ -65,9 +68,10 @@ install_torsten_remote <- function(StanHeaders_version=NULL,
 
   setwd(thiswd)
 
-  install.packages(sprintf("https://cran.r-project.org/src/contrib/rstan_%s.tar.gz",rstan_version),
-                   repos = NULL,
-                   type = "source",
-                   lib=lib,...)
+  if(is.null(rstan_version)) rstan_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'rstan')
+
+  rstan_version <- as.package_version(rstan_version)
+
+  devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, ...)
 
 }

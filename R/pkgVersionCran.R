@@ -17,5 +17,5 @@ pkgVersionCRAN = function(pkg, cran_url='http://cran.r-project.org/web/packages/
 
   # Extract version info
   version_line = cran_pkg_page[grep("Version:",cran_pkg_page)+1]
-  gsub("<(td|\\/td)>","",version_line)
+  as.package_version(gsub("<(td|\\/td)>","",version_line))
 }

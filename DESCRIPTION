@@ -4,11 +4,15 @@ Title: Torsten library extension for 'rstan'
 Version: 0.1.0
 Date: 2017-09-11
 Maintainer: The package maintainer <billg@metrumrg.com>
-Authors@R: c(person("Bill", "Gillespie", email = "billg@metrumrg.com", role = c("aut", "cre")),
+Authors@R: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut", "cre")),
+             person("Bill", "Gillespie", email = "billg@metrumrg.com", role = c("aut")),
              person("Charles", "Margossian", email = "charles.margossian@columbia.edu", role = c("aut")))
 Description: Something smart about torsten.
-Depends: R (>= 3.3.2)
-License: GPL2 | GPL3
+Depends: 
+  R (>= 3.3.2)
+Imports:
+  devtools,utils
+License: GPL-2 | GPL-3
 Encoding: UTF-8
 LazyData: false
 URL: https://github.com/metrumresearchgroup/TorstenHeaders

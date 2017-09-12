@@ -7,6 +7,8 @@
 #' @details installation will replace the 'StanHeaders/include/src/stan' and 'StanHeaders/include/stan' of stanHeaders and install
 #' source rstan without dependencies.
 #' @rdname install_torsten
+#' @importFrom devtools install_version
+#' @importFrom utils install.packages installed.packages packageVersion
 #' @export
 
 install_torsten <- function(StanHeaders_version=NULL,
@@ -19,8 +21,8 @@ install_torsten <- function(StanHeaders_version=NULL,
   install_headers <- FALSE
 
   if(is.null(StanHeaders_version)){
-    if(c('StanHeaders')%in%row.names(installed.packages())){
-      StanHeaders_version <- packageVersion('StanHeaders')
+    if(c('StanHeaders')%in%row.names(utils::installed.packages(lib.loc = lib))){
+      StanHeaders_version <- utils::packageVersion('StanHeaders',lib.loc = lib)
     }else{
       StanHeaders_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'StanHeaders')
       StanHeaders_version <- as.package_version(StanHeaders_version)
@@ -28,8 +30,14 @@ install_torsten <- function(StanHeaders_version=NULL,
     }
   }
 
-  if(install_headers)
-    devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
+  if(install_headers){
+    if(pkgVersionCRAN('StanHeaders')==StanHeaders_version){
+      utils::install.packages('StanHeaders', lib=lib, ...)
+    }else{
+      devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
+    }
+  }
+
 
   TH <- find.package('torstenHeaders')
 
@@ -42,6 +50,12 @@ install_torsten <- function(StanHeaders_version=NULL,
 
   rstan_version <- as.package_version(rstan_version)
 
-  devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, ...)
+  if(pkgVersionCRAN('rstan')==rstan_version){
+    utils::install.packages('rstan', lib=lib, ...)
+  }else{
+    devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, ...)
+  }
+
+
 
 }

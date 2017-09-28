@@ -6,7 +6,7 @@
 
   if(length(list.files(file.path(TH,'stan')))==0){
     system(sprintf('git clone --depth 1 https://github.com/metrumresearchgroup/stan.git %s/stan',td))
-    system(sprintf("mv %s/stan/src/stan %s",td,TH))
+    file.copy(file.path(td,'stan/src/stan'),TH,overwrite = TRUE,recursive = TRUE)
   }
 
   if(length(list.files(file.path(TH,'math')))==0){
@@ -26,7 +26,7 @@
 
   if(length(list.files(file.path(TH,'stan')))==0){
     system(sprintf('git clone --depth 1 https://github.com/metrumresearchgroup/stan.git %s/stan',td))
-    system(sprintf("mv %s/stan/src/stan %s",td,TH))
+    file.copy(file.path(td,'stan/src/stan'),TH,overwrite = TRUE,recursive = TRUE)
   }
 
   if(length(list.files(file.path(TH,'math')))==0){

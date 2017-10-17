@@ -24,7 +24,7 @@ install_torsten_remote <- function(
   lib=.libPaths()[1],
   ...) {
 
-  lib <- normalizePath(lib)
+  lib <- normalizePath(lib,winslash = '/')
 
   thiswd <- getwd()
 

@@ -15,11 +15,11 @@ install_torsten <- function(StanHeaders_version=NULL,
                             rstan_version=NULL,
                             lib=.libPaths()[1],
                             ...) {
-
-  lib <- normalizePath(lib)
-
+  
+  lib <- normalizePath(lib,winslash = '/')
+  
   install_headers <- FALSE
-
+  
   if(is.null(StanHeaders_version)){
     if(c('StanHeaders')%in%row.names(utils::installed.packages(lib.loc = lib))){
       StanHeaders_version <- utils::packageVersion('StanHeaders',lib.loc = lib)
@@ -29,7 +29,7 @@ install_torsten <- function(StanHeaders_version=NULL,
       install_headers <- TRUE
     }
   }
-
+  
   if(install_headers){
     if(pkgVersionCRAN('StanHeaders')==StanHeaders_version){
       utils::install.packages('StanHeaders', lib=lib, ...)
@@ -37,25 +37,23 @@ install_torsten <- function(StanHeaders_version=NULL,
       devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
     }
   }
-
-
+  
+  
   TH <- find.package('torstenHeaders')
-
-  system(sprintf("rm -rf %s/StanHeaders/include/src/stan",lib))
-  system(sprintf("mv %s/stan %s/StanHeaders/include/src/stan",TH,lib))
-  system(sprintf("rm -rf %s/StanHeaders/include/stan",lib))
-  system(sprintf("mv %s/math/stan %s/StanHeaders/include/stan",TH,lib))
-
+  
+  file.copy(file.path(TH,'stan'),file.path(lib,'StanHeaders/include/src'),overwrite=TRUE,recursive=TRUE)
+  file.copy(file.path(TH,'/math/stan'),file.path(lib,'StanHeaders/include'),overwrite=TRUE,recursive=TRUE)
+  
   if(is.null(rstan_version)) rstan_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'rstan')
-
+  
   rstan_version <- as.package_version(rstan_version)
-
+  
   if(pkgVersionCRAN('rstan')==rstan_version){
     utils::install.packages('rstan', lib=lib, ...)
   }else{
     devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, ...)
   }
-
-
-
+  
+  
+  
 }

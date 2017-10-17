@@ -42,9 +42,9 @@ install_torsten_remote <- function(
 
   if(install_headers){
     if(pkgVersionCRAN('StanHeaders')==StanHeaders_version){
-      utils::install.packages('StanHeaders', lib=lib, type='source', ...)
+      utils::install.packages('StanHeaders', lib=lib, ...)
     }else{
-      devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, type='source', ...)
+      devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
     }
   }
 

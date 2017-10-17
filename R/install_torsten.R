@@ -32,9 +32,9 @@ install_torsten <- function(StanHeaders_version=NULL,
   
   if(install_headers){
     if(pkgVersionCRAN('StanHeaders')==StanHeaders_version){
-      utils::install.packages('StanHeaders', lib=lib, ...)
+      utils::install.packages('StanHeaders', lib=lib, type='source', ...)
     }else{
-      devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, ...)
+      devtools::install_version(package = 'StanHeaders',version = StanHeaders_version,lib=lib, type='source', ...)
     }
   }
   
@@ -49,9 +49,9 @@ install_torsten <- function(StanHeaders_version=NULL,
   rstan_version <- as.package_version(rstan_version)
   
   if(pkgVersionCRAN('rstan')==rstan_version){
-    utils::install.packages('rstan', lib=lib, ...)
+    utils::install.packages('rstan', lib=lib, type='source', ...)
   }else{
-    devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, ...)
+    devtools::install_version(package = 'rstan', version = rstan_version, lib=lib, type='source', ...)
   }
   
   

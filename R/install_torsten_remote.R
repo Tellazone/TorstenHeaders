@@ -60,10 +60,10 @@ install_torsten_remote <- function(
     }
 
     system(sprintf("rm -rf %s/StanHeaders/include/src/stan",lib))
-    system(sprintf("mv %s/stan/src/stan %s/StanHeaders/include/src/stan",td,lib))
+    system(sprintf("mv %s/stan/src/stan %s/StanHeaders/include/src/",td,lib))
 
     system(sprintf("rm -rf %s/StanHeaders/include/stan",lib))
-    system(sprintf("mv %s/math/stan %s/StanHeaders/include/stan",td,lib))
+    system(sprintf("mv %s/math/stan %s/StanHeaders/include/",td,lib))
 
   if(is.null(rstan_version)) rstan_version <- read.dcf(system.file('CURRENT_VERSION',package = 'torstenHeaders'),fields = 'rstan')
 

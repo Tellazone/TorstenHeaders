@@ -3,4 +3,4 @@
 	url = git@github.com:metrumresearchgroup/stan.git
 [submodule "inst/math"]
 	path = inst/math
-	url = git@github.com:yizhang-cae/math.git
+	url = git@github.com:metrumresearchgroup/math.git

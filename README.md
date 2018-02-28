@@ -18,3 +18,6 @@ or after cloning this repo
 devtools::load_all('TorstenHeaders')
 install_torsten()
 ```
+System requirement
+------------------
+Please ensure the C++ compiler supports C++11 and `CXXFLAGS` in `.R/Makevar` constains flag `-std=c++11`.

@@ -20,4 +20,4 @@ install_torsten()
 ```
 System requirement
 ------------------
-Please ensure the C++ compiler supports C++11 and `CXXFLAGS` in `.R/Makevar` constains flag `-std=c++11`.
+Please ensure the C++ compiler supports C++11 and `CXXFLAGS` in `.R/Makevars` constains flag `-std=c++11`.

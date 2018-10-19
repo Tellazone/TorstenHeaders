@@ -6,7 +6,7 @@ Date: 2018-01-16
 Maintainer: The package maintainer <billg@metrumrg.com>
 Authors@R: c(person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut", "cre")),
              person("Bill", "Gillespie", email = "billg@metrumrg.com", role = c("aut")),
-             person("Charles", "Margossian", email = "charles.margossian@columbia.edu", role = c("aut")))
+             person("Yi", "Zhang", email = "yiz@metrumrg.com", role = c("aut")))
 Description: Something smart about torsten.
 Depends: 
   R (>= 3.3.2)
